@@ -24,7 +24,6 @@ jobs:
 
     - name: Build
       run: dotnet build /p:Configuration=Release
-      working-directory: ./AssetRipper.GUI/
 
     - name: Upload
       uses: actions/upload-artifact@v3
