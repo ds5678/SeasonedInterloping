@@ -30,8 +30,10 @@ internal class Patches
 	private static void AddMoreRegionOptions(SandboxConfig sandboxConfig)
 	{
 		RegionSpecification[] allRegions = FindRegions();
-		EnsureRegionAddedToAvailableStartOptions(sandboxConfig, "AirfieldRegion", allRegions);
-		EnsureRegionAddedToAvailableStartOptions(sandboxConfig, "CanneryRegion", allRegions);
+		foreach (string regionName in (ReadOnlySpan<string>)["AirfieldRegion", "CanneryRegion", "MiningRegion"])
+		{
+			EnsureRegionAddedToAvailableStartOptions(sandboxConfig, regionName, allRegions);
+		}
 	}
 
 	private static void EnsureRegionAddedToAvailableStartOptions(SandboxConfig sandboxConfig, string regionName, RegionSpecification[] allRegions)
