@@ -27,7 +27,7 @@ jobs:
       run: dotnet build /p:Configuration=Release
 
     - name: Upload
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: SeasonedInterloping
         path: ./SeasonedInterloping/bin/Release/net6.0/SeasonedInterloping.dll
