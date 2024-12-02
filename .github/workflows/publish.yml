@@ -31,6 +31,9 @@ jobs:
       shell: bash
       run: mv $PROJECT_NAME/bin/Release/net6.0/$PROJECT_NAME.dll .
 
+    - name: List files
+      run: ls
+
     - name: Upload executable artifact
       uses: actions/upload-artifact@v4
       with:
