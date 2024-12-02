@@ -37,8 +37,8 @@ jobs:
     - name: Upload executable artifact
       uses: actions/upload-artifact@v4
       with:
-        name: $PROJECT_NAME
-        path: ./*.dll
+        name: ${{ env.PROJECT_NAME }}
+        path: ${{ env.PROJECT_NAME }}.dll
         if-no-files-found: error
 
     - name: Publish a release
@@ -46,4 +46,4 @@ jobs:
       if: startsWith(github.ref, 'refs/tags/')
       with:
         body_path: ./ReleaseChangelog.md
-        files: ./*.dll
+        files: ${{ env.PROJECT_NAME }}.dll
