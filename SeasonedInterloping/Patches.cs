@@ -14,7 +14,7 @@ namespace SeasonedInterloping;
 internal class Patches
 {
 	[HarmonyPostfix]
-	[HarmonyPatch(typeof(Panel_SelectExperience), nameof(Panel_SelectExperience.Enable), new Type[] { typeof(bool) })]
+	[HarmonyPatch(typeof(Panel_SelectExperience), nameof(Panel_SelectExperience.Enable), [typeof(bool)])]
 	private static void Postfix(Panel_SelectExperience __instance)
 	{
 		foreach (var item in __instance.m_MenuItems)
@@ -30,7 +30,7 @@ internal class Patches
 	private static void AddMoreRegionOptions(SandboxConfig sandboxConfig)
 	{
 		RegionSpecification[] allRegions = FindRegions();
-		foreach (string regionName in (ReadOnlySpan<string>)["AirfieldRegion", "CanneryRegion", "MiningRegion"])
+		foreach (string regionName in (ReadOnlySpan<string>)["AirfieldRegion", "CanneryRegion", "MiningRegion", "MountainPassRegion"])
 		{
 			EnsureRegionAddedToAvailableStartOptions(sandboxConfig, regionName, allRegions);
 		}
