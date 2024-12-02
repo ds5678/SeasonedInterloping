@@ -1,0 +1,48 @@
+name: Publish
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  create:
+    tags:
+      - '*'
+
+env:
+  PROJECT_NAME: SeasonedInterloping
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: 9.0.x
+
+    - name: Build
+      run: dotnet build -c Release --project $PROJECT_NAME
+
+    - name: Move release executable to root
+      shell: bash
+      run: mv $PROJECT_NAME/bin/Release/net6.0/$PROJECT_NAME.dll .
+
+    - name: Upload executable artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: $PROJECT_NAME
+        path: $PROJECT_NAME.dll
+        if-no-files-found: error
+
+    - name: Publish a release
+      uses: softprops/action-gh-release@v2
+      if: startsWith(github.ref, 'refs/tags/')
+      with:
+        body_path: ./ReleaseChangelog.md
+        files: |
+          ./*.dll
+
